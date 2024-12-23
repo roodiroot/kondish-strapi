@@ -34,6 +34,59 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::category.category"
+    },
+    "area_of_room": {
+      "type": "string"
+    },
+    "energy_efficiency_class": {
+      "type": "string"
+    },
+    "compressor_type": {
+      "type": "string"
+    },
+    "noise_level": {
+      "type": "string"
+    },
+    "wifi_availability": {
+      "type": "string"
+    },
+    "series": {
+      "type": "string"
+    },
+    "heating_power": {
+      "type": "string"
+    },
+    "cooling_power": {
+      "type": "string"
+    },
+    "country_of_manufacturer": {
+      "type": "string"
+    },
+    "warranty_period": {
+      "type": "string"
+    },
+    "refrigerant": {
+      "type": "string"
+    },
+    "max_pipe_length": {
+      "type": "string"
+    },
+    "cooling_capacity": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "old_price": {
+      "type": "biginteger"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::brand.brand"
     }
   }
 }
