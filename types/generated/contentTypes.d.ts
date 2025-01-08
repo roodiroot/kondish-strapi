@@ -400,6 +400,7 @@ export interface ApiAuthAuth extends Struct.CollectionTypeSchema {
 export interface ApiBrandBrand extends Struct.CollectionTypeSchema {
   collectionName: 'brands';
   info: {
+    description: '';
     displayName: 'Brand';
     pluralName: 'brands';
     singularName: 'brand';
@@ -415,6 +416,7 @@ export interface ApiBrandBrand extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::brand.brand'> &
@@ -444,6 +446,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -467,6 +470,7 @@ export interface ApiProductCatalogProductCatalog
   extends Struct.CollectionTypeSchema {
   collectionName: 'product_catalogs';
   info: {
+    description: '';
     displayName: 'Product catalog';
     pluralName: 'product-catalogs';
     singularName: 'product-catalog';
@@ -478,6 +482,7 @@ export interface ApiProductCatalogProductCatalog
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

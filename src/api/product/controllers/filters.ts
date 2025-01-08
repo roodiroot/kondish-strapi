@@ -1,17 +1,26 @@
 import { Context } from "koa";
 export default {
   async getFilters(ctx: Context) {
-    // console.log("FILTERS");
+    console.log(ctx.query);
+
+    const query = ctx?.query;
+
+    // {
+    //   filters: {
+    //     category: { product_catalog: [Object] },
+    //     brand: { slug: 'energolux' }
+    //   }
+    // }
 
     const fieldsFilterObjects = [
+      { key: "price", label: "Цена" },
+      { key: "series", label: "Серия" },
+      { key: "color", label: "Цвет" },
       { key: "area_of_room", label: "Площадь помещения м²" },
-      { key: "energy_efficiency_class", label: "Класс энергоэффективности" },
       { key: "compressor_type", label: "Тип компрессора" },
       { key: "noise_level", label: "Уровень шума" },
       { key: "wifi_availability", label: "Наличие Wi-Fi" },
-      { key: "series", label: "Серия" },
       { key: "country_of_manufacturer", label: "Страна производителя" },
-      { key: "color", label: "Цвет" },
       { key: "refrigerant", label: "Хладагент" },
       { key: "max_pipe_length", label: "Максимальная длина трубопровода" },
       { key: "cooling_capacity", label: "Мощность охлаждения" },
@@ -22,6 +31,7 @@ export default {
 
     // Запрашиваем только нужные поля
     const products = await strapi.db.query("api::product.product").findMany({
+      where: query.filters,
       select: selectedFields, // Укажите нужные свойства
     });
 
@@ -33,14 +43,6 @@ export default {
       };
       return acc;
     }, {});
-
-    // const filters = {};
-    // for (const field of fieldsFilter) {
-    //   filters[field] = await strapi.db
-    //     .connection("products")
-    //     .distinct(field)
-    //     .pluck(field);
-    // }
 
     ctx.send(filters);
   },

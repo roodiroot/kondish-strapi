@@ -4,7 +4,8 @@
   "info": {
     "singularName": "product-catalog",
     "pluralName": "product-catalogs",
-    "displayName": "Product catalog"
+    "displayName": "Product catalog",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,9 @@
     "slug": {
       "type": "uid",
       "targetField": "name"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
