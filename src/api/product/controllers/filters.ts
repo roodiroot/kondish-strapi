@@ -31,8 +31,8 @@ export default {
 
     // Запрашиваем только нужные поля
     const products = await strapi.db.query("api::product.product").findMany({
-      where: query.filters,
-      select: selectedFields, // Укажите нужные свойства
+      where: query.filters, // Фильтры если есть с фронта
+      select: selectedFields, // Нужные свойства
     });
 
     // Формируем объект уникальных значений

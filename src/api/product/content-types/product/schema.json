@@ -87,6 +87,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::brand.brand"
+    },
+    "popularity": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
