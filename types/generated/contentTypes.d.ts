@@ -466,6 +466,73 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrderProductOrderProduct
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'order_products';
+  info: {
+    displayName: 'OrderProduct';
+    pluralName: 'order-products';
+    singularName: 'order-product';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    count: Schema.Attribute.BigInteger;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-product.order-product'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
+  collectionName: 'orders';
+  info: {
+    description: '';
+    displayName: 'Order';
+    pluralName: 'orders';
+    singularName: 'order';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    contact: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    delivery: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
+      Schema.Attribute.Private;
+    order_products: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-product.order-product'
+    >;
+    payment: Schema.Attribute.Enumeration<['onDelivery', 'consultWithManager']>;
+    publishedAt: Schema.Attribute.DateTime;
+    statusPay: Schema.Attribute.Enumeration<
+      ['new', 'processing', 'shipped', 'delivered', 'cancelled']
+    >;
+    totalPrice: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductCatalogProductCatalog
   extends Struct.CollectionTypeSchema {
   collectionName: 'product_catalogs';
@@ -1063,6 +1130,8 @@ declare module '@strapi/strapi' {
       'api::auth.auth': ApiAuthAuth;
       'api::brand.brand': ApiBrandBrand;
       'api::category.category': ApiCategoryCategory;
+      'api::order-product.order-product': ApiOrderProductOrderProduct;
+      'api::order.order': ApiOrderOrder;
       'api::product-catalog.product-catalog': ApiProductCatalogProductCatalog;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
