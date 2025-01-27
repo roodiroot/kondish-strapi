@@ -67,6 +67,15 @@
     },
     "ordersArray": {
       "type": "json"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }
