@@ -120,7 +120,7 @@ export default factories.createCoreController(
         const orderWithProducts = {
           ...order,
           products: orderProducts.map((item) => ({
-            productId: item.product.documentId,
+            slug: item.product.slug,
             name: item.product.name,
             price: item.product.price,
             count: item.count,
