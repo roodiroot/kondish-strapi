@@ -41,6 +41,17 @@ export default factories.createCoreController(
           },
         });
 
+        // Сообщение с заказом на почту
+        await strapi.plugins["email"].services.email.send({
+          to: "voodivood@gmail.com",
+          from: "shop@kondish.su", //e.g. single sender verification in SendGrid
+          cc: "voodivood@gmail.com",
+          bcc: "voodivood@gmail.com",
+          subject: "Новый заказ в kondish.su",
+          text: "Hello world!",
+          html: "Hello world!",
+        });
+
         // Create the order products
         for (const item of products) {
           await strapi.db.query("api::order-product.order-product").create({
