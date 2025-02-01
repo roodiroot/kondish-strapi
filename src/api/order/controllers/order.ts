@@ -4,6 +4,8 @@
 
 import { factories } from "@strapi/strapi";
 
+import sendEmail from "../../../service/emailService";
+
 export default factories.createCoreController(
   "api::order.order",
   ({ strapi }) => ({
@@ -41,17 +43,6 @@ export default factories.createCoreController(
           },
         });
 
-        // Сообщение с заказом на почту
-        await strapi.plugins["email"].services.email.send({
-          to: "voodivood@gmail.com",
-          from: "shop@kondish.su", //e.g. single sender verification in SendGrid
-          cc: "voodivood@gmail.com",
-          bcc: "voodivood@gmail.com",
-          subject: "Новый заказ в kondish.su",
-          text: "Hello world!",
-          html: "Hello world!",
-        });
-
         // Create the order products
         for (const item of products) {
           await strapi.db.query("api::order-product.order-product").create({
@@ -86,6 +77,28 @@ export default factories.createCoreController(
             totalPrice: item.product.price * item.count,
           })),
         };
+
+        // Формируем данные для шаблона
+        const orderProductsEmailTemplate = orderProducts.map((item) => ({
+          name: item.product.name,
+          count: item.count,
+          price: item.product.price,
+          totalPrice: item.product.price * item.count,
+        }));
+
+        const templateData = {
+          contact,
+          products: orderProductsEmailTemplate,
+          totalPrice,
+        };
+
+        // console.log(process.env.EMAIL_ADMIN);
+
+        await sendEmail(
+          [templateData.contact.email, process.env.EMAIL_ADMIN],
+          "Новый заказ в kondish.su",
+          templateData
+        );
 
         // Return the response
         return ctx.send(orderWithProducts, 201);
