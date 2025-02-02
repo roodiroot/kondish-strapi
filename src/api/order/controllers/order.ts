@@ -88,6 +88,7 @@ export default factories.createCoreController(
 
         const templateData = {
           contact,
+          delivery,
           products: orderProductsEmailTemplate,
           totalPrice,
         };
@@ -97,6 +98,7 @@ export default factories.createCoreController(
         await sendEmail(
           [templateData.contact.email, process.env.EMAIL_ADMIN],
           "Новый заказ в kondish.su",
+          "У вас новый заказ. Подробности в письме.",
           templateData
         );
 

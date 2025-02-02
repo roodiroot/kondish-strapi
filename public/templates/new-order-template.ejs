@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новый заказ</title>
+  <style>
+
+    *, :before, :after {
+      box-sizing: border-box;
+      border: 0 solid #e5e7eb;
+    }
+
+    h2, p {
+      margin: 0;
+    }
+
+    .absolute {
+      position: absolute;
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    .bottom-0 {
+      bottom: 0;
+    }
+
+    .left-7 {
+      left: 7%;
+    }
+
+    .right-0 {
+      right: 0;
+    }
+
+    .z-10 {
+      z-index: 10;
+    }
+
+    .mx-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mt-6 {
+      margin-top: 1.5rem;
+    }
+
+    .mt-8 {
+      margin-top: 2rem;
+    }
+
+    .mt-9 {
+      margin-top: 2.25rem;
+    }
+
+    .mt-10px {
+      margin-top: 10px;
+    }
+
+    .w-full {
+      width: 100%;
+    }
+
+    .max-w-600px {
+      max-width: 600px;
+    }
+
+    .overflow-hidden {
+      overflow: hidden;
+    }
+
+    .rounded-md {
+      border-radius: .375rem;
+    }
+
+    .bg-F97316 {
+      background-color: #F97316;
+    }
+
+    .bg-gray-50 {
+      background-color: #f9fafb;
+    }
+
+    .bg-white {
+      background-color: #ffffff;
+    }
+
+    .p-12 {
+      padding: 3rem;
+    }
+
+    .p-50px {
+      padding: 50px;
+    }
+
+    .px-4 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .py-8 {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-2xl {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+
+    .text-sm {
+      font-size: .875rem;
+      line-height: 1.25rem;
+    }
+
+    .text-xl {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+
+    .text-xs {
+      font-size: .75rem;
+      line-height: 1rem;
+    }
+    .text-base {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .leading-6 {
+      line-height: 1.5rem;
+    }
+
+    .text-gray-400 {
+      color: #9ca3af;
+    }
+
+    .text-gray-900 {
+      color: #111827;
+    }
+
+    .text-white {
+      color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      color: #515355;
+      font-weight: bold;
+    }
+    tr:nth-child(odd) td {
+      background-color: #e2e4ee;
+    }
+    .p-12px {
+      padding: 12px
+    }
+    .border {
+      border: #515355;
+    }
+    .button {
+      display: block;
+      text-align: center;
+      background-color: #F97316; 
+      color: white; 
+      padding: 15px 20px; 
+      text-decoration: none; 
+      border-radius: 5px;
+    }
+    body {
+      font-family: Helvetica, sans-serif;
+    }
+
+    @media (max-width: 600px){
+      .p-50px {
+        padding: 16px;
+      }
+    }
+    @media (max-width: 600px){
+      .flexbox {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="py-8 px-4 bg-gray-50">
+    <div class="text-center">
+      <a href="https://kondish.su/" target="_blank">
+        <img style="width: 145px;" src="https://strapi.kondish.su/uploads/logo_7041c3a36f.png" alt="logo_kondish">
+      </a>
+    </div>
+    <div class="mt-9 w-full max-w-600px bg-white mx-auto rounded-md shadow-lg overflow-hidden">
+        <div class="p-50px">
+            <h2 class="text-2xl font-bold text-gray-900">Здравствуйте, <%= contact.fullName %>!</h2>
+            <p class="text-sm leading-6 text-gray-900 mt-8"><span class="font-bold">Благодарим Вас за заказ</span>, и уже начали его собирать. Уведомления о статусе заказа вам сообщит менеджер по телефону.</p>
+            <div class="mt-8">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Продукт</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Итого</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.forEach(function(product) { %>
+                    <tr>
+                      <td class="font-bold"><%= product.name %></td>
+                      <td><%= product.count %></td>
+                      <td><%= product.price %> руб.</td>
+                      <td><%= product.totalPrice %> руб.</td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+              <div class="p-12px">Общая сумма: <%= totalPrice %> руб.</div>
+            </div>
+            <div class="flexbox">
+              <div class="text-sm text-gray-900 mt-8">
+                <div class="">
+                  <span class="font-bold">Адресная доставка</span><br/>
+                  <span><%= delivery.address %></span><br/>
+                </div>
+                <div class="mt-10px">
+                  <span class="font-bold">Контактное лицо</span><br/>
+                  <span><%= contact.fullName %></span><br/>
+                </div>
+                <div class="mt-10px">
+                  <span class="font-bold">Телефон</span><br/>
+                  <span><%= contact.phone %></span><br/>
+                </div>
+              </div>
+              <div class="social" style="text-align: end;">
+                <a target="_blank" class="text-gray-900 font-bold" style="text-decoration: none" href="https://kondish.su/">kondish.su</a>
+                <a target="_blank" href="https://vk.com/kondish" style="margin-left: 10px; "><img style="width: 28px; height: 28px; margin-bottom: -2px;" src="https://strapi.kondish.su/uploads/vk_d22eaf00ba.png" alt="vk_link"></a>
+              </div>
+            </div>
+            <hr style="border: 1px solid #E9E9E9; margin: 24px 0;">
+            <div>
+              <a href="https://kondish.su/" class="button">Спасибо за заказ!</a>
+            </div>
+            <div class="text-center font-bold text-xl mt-6"><a class="text-gray-400" style="text-decoration: none;" href="tel:84956752555">8 (495) 675-25-55</a></div>
+           <div class="text-center text-xs text-gray-400 mt-8">© 2021-2025 Kondish.</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -2,14 +2,37 @@
 import path from "path";
 import ejs from "ejs";
 
-const sendEmail = async (to, subject, templateData) => {
+type templateData = {
+  contact: {
+    fullName: string;
+    phone: string;
+    email: string;
+  };
+  delivery: {
+    address: string;
+  };
+  products: {
+    name: string;
+    count: number;
+    price: number;
+    totalPrice: number;
+  }[];
+  totalPrice: number;
+};
+
+const sendEmail = async (
+  to: string | string[],
+  subject: string,
+  text: string,
+  templateData: templateData
+) => {
   try {
     // Путь к шаблону
     const templatePath = path.join(
       process.cwd(),
       "public",
       "templates",
-      "order-template.ejs"
+      "new-order-template.ejs"
     );
 
     // Рендерим HTML с данными
@@ -19,7 +42,7 @@ const sendEmail = async (to, subject, templateData) => {
     await strapi.plugins["email"].services.email.send({
       to: Array.isArray(to) ? to.join(",") : to,
       subject,
-      text: "У вас новый заказ. Подробности в письме.",
+      text,
       html: htmlContent, // Вставляем HTML шаблон
     });
 
