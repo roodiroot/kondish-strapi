@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "quality_guaratee_pages",
+  "info": {
+    "singularName": "quality-guaratee-page",
+    "pluralName": "quality-guaratee-pages",
+    "displayName": "QualityGuarateePage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

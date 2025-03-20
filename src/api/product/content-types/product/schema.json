@@ -91,6 +91,12 @@
     "popularity": {
       "type": "integer",
       "default": 0
+    },
+    "sale": {
+      "type": "biginteger",
+      "required": false,
+      "max": "099",
+      "min": "01"
     }
   }
 }

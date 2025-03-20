@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "offer_pages",
+  "info": {
+    "singularName": "offer-page",
+    "pluralName": "offer-pages",
+    "displayName": "OfferPage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

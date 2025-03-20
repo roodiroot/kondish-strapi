@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "policy_pages",
+  "info": {
+    "singularName": "policy-page",
+    "pluralName": "policy-pages",
+    "displayName": "PolicyPage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

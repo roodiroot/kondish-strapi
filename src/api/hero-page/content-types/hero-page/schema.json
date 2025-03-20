@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "hero_pages",
+  "info": {
+    "singularName": "hero-page",
+    "pluralName": "hero-pages",
+    "displayName": "HeroPage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aboutContent": {
+      "type": "richtext"
+    }
+  }
+}
