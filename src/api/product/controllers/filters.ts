@@ -1,7 +1,7 @@
 import { Context } from "koa";
 export default {
   async getFilters(ctx: Context) {
-    console.log(ctx.query);
+    // console.log(ctx.query);
 
     const query = ctx?.query;
 

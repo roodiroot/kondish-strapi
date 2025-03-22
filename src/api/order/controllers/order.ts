@@ -5,6 +5,8 @@
 import { factories } from "@strapi/strapi";
 
 import sendEmail from "../../../service/emailService";
+import { sendNotification } from "../../../service/telegramService";
+import { createHtmlMessageForOrder } from "../../../utils/createHtmlMessage";
 
 export default factories.createCoreController(
   "api::order.order",
@@ -95,12 +97,17 @@ export default factories.createCoreController(
 
         // console.log(process.env.EMAIL_ADMIN);
 
+        // Сообщение на почту
         await sendEmail(
           [templateData.contact.email, process.env.EMAIL_ADMIN],
           "Новый заказ в kondish.su",
           "У вас новый заказ. Подробности в письме.",
           templateData
         );
+
+        // Сообщение в телеграм
+        const htmlMessage = createHtmlMessageForOrder(templateData);
+        await sendNotification(htmlMessage);
 
         // Return the response
         return ctx.send(orderWithProducts, 201);
