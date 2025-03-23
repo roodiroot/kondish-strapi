@@ -97,6 +97,11 @@
       "required": false,
       "max": "099",
       "min": "01"
+    },
+    "available": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     }
   }
 }

@@ -507,6 +507,9 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    available: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     brands: Schema.Attribute.Relation<'manyToMany', 'api::brand.brand'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -873,6 +876,9 @@ export interface ApiProductCatalogProductCatalog
     draftAndPublish: true;
   };
   attributes: {
+    available: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -907,6 +913,9 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
   attributes: {
     area_of_room: Schema.Attribute.String;
+    available: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     brand: Schema.Attribute.Relation<'oneToOne', 'api::brand.brand'>;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     color: Schema.Attribute.String;

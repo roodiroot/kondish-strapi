@@ -33,6 +33,11 @@
     },
     "description": {
       "type": "text"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }
