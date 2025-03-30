@@ -18,8 +18,4 @@ export default ({ env }) => ({
       },
     },
   },
-  // "export-import": {
-  //   enabled: true,
-  //   resolve: "./src/plugins/export-import",
-  // },
 });
