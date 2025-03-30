@@ -1,3 +1,5 @@
+import { resolve } from "path";
+
 export default ({ env }) => ({
   email: {
     config: {
@@ -15,5 +17,9 @@ export default ({ env }) => ({
         defaultReplyTo: env("BEGET_EMAIL_USER"),
       },
     },
+  },
+  "export-import": {
+    enabled: true,
+    resolve: "./src/plugins/export-import",
   },
 });
