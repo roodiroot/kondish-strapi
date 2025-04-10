@@ -929,6 +929,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     description: Schema.Attribute.RichText;
     energy_efficiency_class: Schema.Attribute.String;
     heating_power: Schema.Attribute.String;
+    hit: Schema.Attribute.Boolean;
     images: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
