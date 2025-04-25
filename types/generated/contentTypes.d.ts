@@ -591,6 +591,34 @@ export interface ApiDeliveryPageDeliveryPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiDocDoc extends Struct.CollectionTypeSchema {
+  collectionName: 'docs';
+  info: {
+    displayName: 'Doc';
+    pluralName: 'docs';
+    singularName: 'doc';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    file: Schema.Attribute.Media<'files'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::doc.doc'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHeroPageHeroPage extends Struct.SingleTypeSchema {
   collectionName: 'hero_pages';
   info: {
@@ -1634,6 +1662,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::contacts-page.contacts-page': ApiContactsPageContactsPage;
       'api::delivery-page.delivery-page': ApiDeliveryPageDeliveryPage;
+      'api::doc.doc': ApiDocDoc;
       'api::hero-page.hero-page': ApiHeroPageHeroPage;
       'api::hero-screen.hero-screen': ApiHeroScreenHeroScreen;
       'api::installation-climber-page.installation-climber-page': ApiInstallationClimberPageInstallationClimberPage;
