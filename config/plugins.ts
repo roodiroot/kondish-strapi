@@ -16,4 +16,24 @@ export default ({ env }) => ({
       },
     },
   },
+  "export-import-strapi5-plugin": {
+    enabled: true,
+    config: {
+      entities: {
+        "api::product.product": {
+          fields: [
+            "category.name",
+            "brand.name",
+            "name",
+            "slug",
+            "price",
+            "sale",
+            "hit",
+            "available",
+            "popularity",
+          ],
+        },
+      },
+    },
+  },
 });

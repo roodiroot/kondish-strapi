@@ -28,6 +28,13 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
