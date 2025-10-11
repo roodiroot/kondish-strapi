@@ -948,6 +948,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<true>;
     brand: Schema.Attribute.Relation<'oneToOne', 'api::brand.brand'>;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    chars: Schema.Attribute.Component<'components.characteristics', true>;
     color: Schema.Attribute.String;
     compressor_type: Schema.Attribute.String;
     cooling_capacity: Schema.Attribute.String;

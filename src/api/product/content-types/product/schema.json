@@ -105,6 +105,11 @@
     },
     "hit": {
       "type": "boolean"
+    },
+    "chars": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.characteristics"
     }
   }
 }

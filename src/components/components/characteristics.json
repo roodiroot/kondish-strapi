@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_components_characteristics",
+  "info": {
+    "displayName": "Characteristics",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}
