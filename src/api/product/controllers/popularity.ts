@@ -28,13 +28,14 @@ export default {
       }
 
       // Увеличить популярность на основе веса действия
-      const updatedProduct = await strapi.db
-        .query("api::product.product")
+      const updatedProduct = await strapi
+        .documents("api::product.product")
         .update({
-          where: { slug },
+          documentId: product.documentId, // или другой способ идентификации документа
           data: {
             popularity: product?.popularity + weights[action],
           },
+          status: "published",
         });
 
       return ctx.send({ data: updatedProduct });
