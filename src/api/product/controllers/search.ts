@@ -30,6 +30,7 @@ export default {
         {
           $or: [
             { name: { $containsi: trimmedQuery } },
+            { series: { $containsi: trimmedQuery } },
             { category: { name: { $containsi: trimmedQuery } } },
             { brand: { name: { $containsi: trimmedQuery } } },
           ],
