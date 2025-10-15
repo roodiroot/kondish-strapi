@@ -43,7 +43,7 @@ export default {
         strapi.documents("api::product.product").findMany({
           status: "published",
           filters,
-          populate: ["category", "brand"],
+          populate: ["category", "brand", "images"],
           limit,
           start,
         }),
