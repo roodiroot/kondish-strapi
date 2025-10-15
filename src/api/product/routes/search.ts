@@ -3,7 +3,7 @@ export default {
     {
       method: "GET",
       path: "/product/search",
-      handler: "search.getProducts",
+      handler: "search.getProductsSearch",
     },
   ],
 };
