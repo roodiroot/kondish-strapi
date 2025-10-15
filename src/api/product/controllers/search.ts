@@ -24,6 +24,8 @@ export default {
     const start = (pageNum - 1) * pageSizeNum;
     const limit = pageSizeNum;
 
+    const sort = ctx.query.sort || "popularity:desc";
+
     const filters = {
       $and: [
         { available: true },
@@ -47,6 +49,7 @@ export default {
           populate: ["category", "brand", "images"],
           limit,
           start,
+          sort,
         }),
         strapi.documents("api::product.product").count({
           status: "published",
