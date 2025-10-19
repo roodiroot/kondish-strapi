@@ -976,6 +976,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.BigInteger;
     publishedAt: Schema.Attribute.DateTime;
     refrigerant: Schema.Attribute.String;
+    reviews: Schema.Attribute.Component<'components.reviews', false>;
     sale: Schema.Attribute.BigInteger &
       Schema.Attribute.SetMinMax<
         {

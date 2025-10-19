@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_components_reviews",
+  "info": {
+    "displayName": "reviews",
+    "icon": "feather"
+  },
+  "options": {},
+  "attributes": {
+    "grade": {
+      "type": "decimal",
+      "default": 0,
+      "required": true,
+      "max": 5,
+      "min": 0
+    },
+    "count": {
+      "type": "integer"
+    }
+  }
+}

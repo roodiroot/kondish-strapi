@@ -110,6 +110,11 @@
       "type": "component",
       "repeatable": true,
       "component": "components.characteristics"
+    },
+    "reviews": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.reviews"
     }
   }
 }
