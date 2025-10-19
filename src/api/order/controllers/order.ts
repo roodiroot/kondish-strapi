@@ -23,10 +23,11 @@ export default factories.createCoreController(
       // Check if the products exist
       const validProductIds = [];
       for (const item of products) {
-        const product = await strapi.db
-          .query("api::product.product")
-          .findOne({ where: { id: item.product } });
-        if (!product || product.publishedAt === null) {
+        const product = await strapi.documents("api::product.product").findOne({
+          documentId: item.product,
+          status: "published",
+        });
+        if (!product) {
           return ctx.badRequest(`Product with ID ${item.product} not found`);
         }
         validProductIds.push(product.id);
@@ -34,7 +35,7 @@ export default factories.createCoreController(
 
       // Create the order
       try {
-        const newOrder = await strapi.db.query("api::order.order").create({
+        const newOrder = await strapi.documents("api::order.order").create({
           data: {
             contact,
             delivery,
@@ -47,25 +48,24 @@ export default factories.createCoreController(
 
         // Create the order products
         for (const item of products) {
-          await strapi.db.query("api::order-product.order-product").create({
+          await strapi.documents("api::order-product.order-product").create({
             data: {
-              order: newOrder.id,
+              order: newOrder.documentId,
               count: item.count,
               product: item.product,
             },
           });
         }
 
-        // Load the order products
-        const orderProducts = await strapi.db
-          .query("api::order-product.order-product")
+        const orderProducts = await strapi
+          .documents("api::order-product.order-product")
           .findMany({
-            where: {
+            filters: {
               order: {
                 documentId: newOrder.documentId,
               },
             },
-            populate: { product: true },
+            populate: ["product"],
           });
 
         // Формируем ответ с товарами и их количеством
@@ -76,16 +76,16 @@ export default factories.createCoreController(
             name: item.product.name,
             price: item.product.price,
             count: item.count,
-            totalPrice: item.product.price * item.count,
+            totalPrice: +item.product.price * +item.count,
           })),
         };
 
         // Формируем данные для шаблона
         const orderProductsEmailTemplate = orderProducts.map((item) => ({
           name: item.product.name,
-          count: item.count,
-          price: item.product.price,
-          totalPrice: item.product.price * item.count,
+          count: +item.count,
+          price: +item.product.price,
+          totalPrice: +item.product.price * +item.count,
         }));
 
         const templateData = {
