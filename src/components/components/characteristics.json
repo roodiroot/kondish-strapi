@@ -2,14 +2,15 @@
   "collectionName": "components_components_characteristics",
   "info": {
     "displayName": "Characteristics",
-    "icon": "apps"
+    "icon": "apps",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "Title": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "description": {
       "type": "string"

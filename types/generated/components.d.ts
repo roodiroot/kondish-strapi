@@ -3,14 +3,13 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface ComponentsCharacteristics extends Struct.ComponentSchema {
   collectionName: 'components_components_characteristics';
   info: {
+    description: '';
     displayName: 'Characteristics';
     icon: 'apps';
   };
   attributes: {
     description: Schema.Attribute.String;
-    Title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
