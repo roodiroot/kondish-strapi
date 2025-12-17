@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "callibri_webhook_logs",
+  "info": {
+    "singularName": "callibri-webhook-log",
+    "pluralName": "callibri-webhook-logs",
+    "displayName": "callibri_webhook_log"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "callId": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "leadId": {
+      "type": "string"
+    },
+    "clientCallibriId": {
+      "type": "string"
+    },
+    "clientPhone": {
+      "type": "string"
+    },
+    "clientName": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "callStatus": {
+      "type": "string"
+    },
+    "talkDurationSec": {
+      "type": "decimal"
+    },
+    "recordUrl": {
+      "type": "string"
+    },
+    "trackingUrl": {
+      "type": "string"
+    },
+    "substitutionChannelId": {
+      "type": "string"
+    },
+    "substitutionChannelName": {
+      "type": "string"
+    },
+    "substitutionNumber": {
+      "type": "string"
+    },
+    "landingPage": {
+      "type": "string"
+    },
+    "trafficSource": {
+      "type": "string"
+    },
+    "trafficType": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "string"
+    },
+    "utmSource": {
+      "type": "string"
+    },
+    "utmMedium": {
+      "type": "string"
+    },
+    "utmCampaign": {
+      "type": "string"
+    },
+    "rawPayload": {
+      "type": "json"
+    },
+    "callDate": {
+      "type": "string"
+    }
+  }
+}

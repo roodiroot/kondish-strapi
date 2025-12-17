@@ -556,6 +556,56 @@ export interface ApiBrandBrand extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCallibriWebhookLogCallibriWebhookLog
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'callibri_webhook_logs';
+  info: {
+    displayName: 'callibri_webhook_log';
+    pluralName: 'callibri-webhook-logs';
+    singularName: 'callibri-webhook-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    callDate: Schema.Attribute.String;
+    callId: Schema.Attribute.String & Schema.Attribute.Required;
+    callStatus: Schema.Attribute.String;
+    clientCallibriId: Schema.Attribute.String;
+    clientName: Schema.Attribute.String;
+    clientPhone: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    keywords: Schema.Attribute.String;
+    landingPage: Schema.Attribute.String;
+    leadId: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::callibri-webhook-log.callibri-webhook-log'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rawPayload: Schema.Attribute.JSON;
+    recordUrl: Schema.Attribute.String;
+    region: Schema.Attribute.String;
+    substitutionChannelId: Schema.Attribute.String;
+    substitutionChannelName: Schema.Attribute.String;
+    substitutionNumber: Schema.Attribute.String;
+    talkDurationSec: Schema.Attribute.Decimal;
+    trackingUrl: Schema.Attribute.String;
+    trafficSource: Schema.Attribute.String;
+    trafficType: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    utmCampaign: Schema.Attribute.String;
+    utmMedium: Schema.Attribute.String;
+    utmSource: Schema.Attribute.String;
+  };
+}
+
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
@@ -1725,6 +1775,7 @@ declare module '@strapi/strapi' {
       'api::article.article': ApiArticleArticle;
       'api::auth.auth': ApiAuthAuth;
       'api::brand.brand': ApiBrandBrand;
+      'api::callibri-webhook-log.callibri-webhook-log': ApiCallibriWebhookLogCallibriWebhookLog;
       'api::category.category': ApiCategoryCategory;
       'api::contacts-page.contacts-page': ApiContactsPageContactsPage;
       'api::delivery-page.delivery-page': ApiDeliveryPageDeliveryPage;
