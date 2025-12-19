@@ -78,6 +78,22 @@
     },
     "callDate": {
       "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "call",
+        "feedback"
+      ]
+    },
+    "userName": {
+      "type": "string"
+    },
+    "userComment": {
+      "type": "text"
+    },
+    "userEmail": {
+      "type": "string"
     }
   }
 }

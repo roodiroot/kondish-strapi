@@ -597,9 +597,13 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
     trackingUrl: Schema.Attribute.String;
     trafficSource: Schema.Attribute.String;
     trafficType: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['call', 'feedback']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    userComment: Schema.Attribute.Text;
+    userEmail: Schema.Attribute.String;
+    userName: Schema.Attribute.String;
     utmCampaign: Schema.Attribute.String;
     utmMedium: Schema.Attribute.String;
     utmSource: Schema.Attribute.String;

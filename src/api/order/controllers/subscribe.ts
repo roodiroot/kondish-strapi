@@ -1,23 +1,19 @@
 import { Context } from "koa";
 import { sendNotification } from "../../../service/telegramService";
 import { createHtmlMessageForFeedback } from "../../../utils/createHtmlMessage";
+import { toCallType } from "../../../utils/toCallType";
 
 export default {
   async newSubscribe(ctx: Context) {
     const { email } = ctx.request.body as { email: string };
 
-    // Проверка наличия email
     if (!email) {
       return ctx.badRequest("Email is required"); // Возвращаем ошибку 400
     }
 
-    // Формируем текст для Telegram
     const telegramMessage = `🎉 🧲<b>Новый подписчик на рассылку!</b>🧲\nEmail: ${email}`;
     const response = await sendNotification(telegramMessage);
 
-    // console.log(response);
-
-    // Проверка ответа от Telegram API
     if (response.ok) {
       return ctx.send({
         message: "Subscriber notified in Telegram!",
@@ -37,26 +33,52 @@ export default {
       message?: string;
     };
 
-    if (!username || !email) {
-      return ctx.badRequest("Username and email is required");
-    }
+    const data = {
+      callId: "no call",
+      type: toCallType("feedback"),
+      userName: username || null,
+      userComment: message || null,
+      userEmail: email || null,
+      clientPhone: phone,
+    };
 
-    const telegramMessage = createHtmlMessageForFeedback({
-      username,
-      email,
-      phone,
-      message,
+    ctx.send({
+      ok: true,
+      status: "success",
     });
-    const response = await sendNotification(telegramMessage);
 
-    // Проверка ответа от Telegram API
-    if (response.ok) {
-      return ctx.send({
-        ok: true,
-        status: "success",
-      });
-    } else {
-      throw new Error("Telegram API returned an error");
-    }
+    setImmediate(async () => {
+      try {
+        const saved = await strapi
+          .documents("api::callibri-webhook-log.callibri-webhook-log")
+          .create({
+            data,
+            status: "published",
+          });
+
+        strapi.log.info("Save DB", saved.documentId);
+        const tw = await strapi
+          .service("api::callibri-webhook-log.callibri-webhook-log")
+          .createCallInCrmByDocumentId(saved.documentId);
+
+        strapi.log.info("Push crm ", tw?.data?.createCall?.id);
+      } catch (e) {
+        strapi.log.error("Save / CRM error", e);
+      }
+
+      try {
+        const res = await sendNotification(
+          createHtmlMessageForFeedback({
+            username,
+            email,
+            phone,
+            message,
+          })
+        );
+        strapi.log.info("Send Message ", res.ok);
+      } catch (e) {
+        strapi.log.error("Telegram error", e);
+      }
+    });
   },
 };

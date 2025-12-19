@@ -4,6 +4,14 @@
 
 import { factories } from "@strapi/strapi";
 
+type LeadType = "call" | "feedback";
+type TwentyTypeCustom = "CALL" | "FEEDBACK";
+
+const mapType: Record<LeadType, TwentyTypeCustom> = {
+  call: "CALL",
+  feedback: "FEEDBACK",
+};
+
 const FALLBACK_PHONE = {
   primaryPhoneCallingCode: "+7",
   primaryPhoneCountryCode: "RU",
@@ -87,7 +95,7 @@ export default factories.createCoreService(
       if (!call) throw new Error(`Call not found: ${documentId}`);
 
       // Твой дедуп/идентификатор
-      const callId = call.callId || documentId;
+      const callId = call?.callId || documentId;
 
       const phoneParts = normalizePhoneForCrm(call.clientPhone);
 
@@ -108,6 +116,10 @@ export default factories.createCoreService(
         talkdurationsec: String(call?.talkDurationSec || "0"),
         recordurl: call?.recordUrl || "",
         source: call?.utmSource || "",
+        typeCustom: mapType[call.type],
+        userName: call?.userName || null,
+        userComment: call?.userComment || null,
+        userEmail: call?.userEmail || null,
       };
 
       const url = `${baseUrl}/rest/calls`;

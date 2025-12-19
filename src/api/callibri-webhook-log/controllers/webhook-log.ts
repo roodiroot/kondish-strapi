@@ -1,4 +1,5 @@
 import { Context } from "koa";
+import { toCallType } from "../../../utils/toCallType";
 
 const s = (v) => (v === undefined || v === null ? null : String(v));
 
@@ -28,7 +29,7 @@ export default {
     const data = {
       rawPayload: payload,
       callId: s(callId),
-
+      type: toCallType("call"),
       leadId: s(payload.lid_id),
       clientCallibriId: s(payload.crm_client_id),
 
@@ -86,7 +87,7 @@ export default {
           status: "published",
         });
 
-      const tw = await strapi
+      await strapi
         .service("api::callibri-webhook-log.callibri-webhook-log")
         .createCallInCrmByDocumentId(saved.documentId);
     }
