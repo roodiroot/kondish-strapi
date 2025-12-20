@@ -577,6 +577,8 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    crmLastError: Schema.Attribute.Text;
+    crmStatus: Schema.Attribute.String;
     keywords: Schema.Attribute.String;
     landingPage: Schema.Attribute.String;
     leadId: Schema.Attribute.String;
@@ -593,7 +595,7 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
     substitutionChannelId: Schema.Attribute.String;
     substitutionChannelName: Schema.Attribute.String;
     substitutionNumber: Schema.Attribute.String;
-    talkDurationSec: Schema.Attribute.Decimal;
+    talkDurationSec: Schema.Attribute.Integer;
     trackingUrl: Schema.Attribute.String;
     trafficSource: Schema.Attribute.String;
     trafficType: Schema.Attribute.String;
@@ -607,6 +609,7 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
     utmCampaign: Schema.Attribute.String;
     utmMedium: Schema.Attribute.String;
     utmSource: Schema.Attribute.String;
+    waitDurationSec: Schema.Attribute.Integer;
   };
 }
 

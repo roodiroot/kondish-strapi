@@ -28,8 +28,11 @@ export default {
 
     const data = {
       rawPayload: payload,
+
       callId: s(callId),
+      substitutionChannelId: s(payload.channel_id),
       type: toCallType("call"),
+
       leadId: s(payload.lid_id),
       clientCallibriId: s(payload.crm_client_id),
 
@@ -47,7 +50,6 @@ export default {
       recordUrl: s(payload.link_download),
       trackingUrl: s(payload.track_url),
 
-      substitutionChannelId: s(payload.channel_id),
       substitutionChannelName: s(payload.name_channel),
       substitutionNumber: s(payload.dst),
 
@@ -70,26 +72,52 @@ export default {
         limit: 1,
       });
 
-    let saved;
-    if (existed?.length) {
-      saved = await strapi
-        .documents("api::callibri-webhook-log.callibri-webhook-log")
-        .update({
-          documentId: existed[0].documentId,
-          data,
-          status: "published",
-        });
-    } else {
-      saved = await strapi
-        .documents("api::callibri-webhook-log.callibri-webhook-log")
-        .create({
-          data,
-          status: "published",
-        });
+    const saved = existed?.length
+      ? await strapi
+          .documents("api::callibri-webhook-log.callibri-webhook-log")
+          .update({
+            documentId: existed[0].documentId,
+            data,
+            status: "published",
+          })
+      : await strapi
+          .documents("api::callibri-webhook-log.callibri-webhook-log")
+          .create({
+            data,
+            status: "published",
+          });
 
-      await strapi
-        .service("api::callibri-webhook-log.callibri-webhook-log")
-        .createCallInCrmByDocumentId(saved.documentId);
+    strapi.log.info("Create call");
+
+    if (!existed?.length) {
+      setImmediate(async () => {
+        try {
+          await strapi
+            .service("api::callibri-webhook-log.callibri-webhook-log")
+            .createCallInCrmByDocumentId(saved.documentId);
+          await strapi
+            .documents("api::callibri-webhook-log.callibri-webhook-log")
+            .update({
+              documentId: saved.documentId,
+              data: {
+                crmStatus: "success",
+              },
+              status: "published",
+            });
+        } catch (e) {
+          strapi.log.error("CRM create failed", e);
+          await strapi
+            .documents("api::callibri-webhook-log.callibri-webhook-log")
+            .update({
+              documentId: saved.documentId,
+              data: {
+                crmStatus: "failed",
+                crmLastError: String(e?.message ?? e),
+              },
+              status: "published",
+            });
+        }
+      });
     }
 
     ctx.body = { ok: true, callId: s(callId), documentId: saved.documentId };

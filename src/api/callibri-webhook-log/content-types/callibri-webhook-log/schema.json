@@ -35,7 +35,7 @@
       "type": "string"
     },
     "talkDurationSec": {
-      "type": "decimal"
+      "type": "integer"
     },
     "recordUrl": {
       "type": "string"
@@ -94,6 +94,15 @@
     },
     "userEmail": {
       "type": "string"
+    },
+    "waitDurationSec": {
+      "type": "integer"
+    },
+    "crmStatus": {
+      "type": "string"
+    },
+    "crmLastError": {
+      "type": "text"
     }
   }
 }
