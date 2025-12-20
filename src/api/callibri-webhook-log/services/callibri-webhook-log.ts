@@ -115,11 +115,13 @@ export default factories.createCoreService(
         status: callId?.callStatus || "no status",
         talkdurationsec: String(call?.talkDurationSec || "0"),
         recordurl: call?.recordUrl || "",
-        source: call?.utmSource || "",
+        source: call?.trafficSource || "",
         typeCustom: mapType[call.type],
         userName: call?.userName || null,
         userComment: call?.userComment || null,
         userEmail: call?.userEmail || null,
+        trafficType: call?.trafficType || null,
+        region: call?.region || null,
       };
 
       const url = `${baseUrl}/rest/calls`;
