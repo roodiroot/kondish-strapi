@@ -3,6 +3,12 @@ import { toCallType } from "../../../utils/toCallType";
 
 const s = (v) => (v === undefined || v === null ? null : String(v));
 
+const truncate = (value: unknown, max = 255): string | null => {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== "string") return String(value);
+  return value.length > max ? value.slice(0, max) : value;
+};
+
 const toIntOrNull = (v) => {
   if (v === undefined || v === null) return null;
   const str = String(v).trim();
@@ -37,7 +43,7 @@ export default {
       clientCallibriId: s(payload.crm_client_id),
 
       clientPhone: s(payload.phone),
-      clientName: s(payload.name),
+      clientName: truncate(s(payload.name)),
       region: s(payload.region),
 
       callType: s(payload.name_type),
@@ -47,20 +53,20 @@ export default {
         talk !== null && total !== null ? Math.max(total - talk, 0) : null,
       talkDurationSec: talk,
 
-      recordUrl: s(payload.link_download),
-      trackingUrl: s(payload.track_url),
+      recordUrl: truncate(s(payload.link_download)),
+      trackingUrl: truncate(s(payload.track_url)),
 
-      substitutionChannelName: s(payload.name_channel),
+      substitutionChannelName: truncate(s(payload.name_channel)),
       substitutionNumber: s(payload.dst),
 
-      landingPage: s(payload.landing_page),
-      trafficSource: s(payload.source),
-      trafficType: s(payload.traffic_type),
-      keywords: s(payload.query),
+      landingPage: truncate(s(payload.landing_page)),
+      trafficSource: truncate(s(payload.source)),
+      trafficType: truncate(s(payload.traffic_type)),
+      keywords: truncate(s(payload.query)),
 
-      utmSource: s(payload.utm_source),
-      utmMedium: s(payload.utm_medium),
-      utmCampaign: s(payload.utm_campaign),
+      utmSource: truncate(s(payload.utm_source)),
+      utmMedium: truncate(s(payload.utm_medium)),
+      utmCampaign: truncate(s(payload.utm_campaign)),
 
       callDate: s(payload.date),
     };

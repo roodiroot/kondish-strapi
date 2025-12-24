@@ -579,8 +579,8 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
       Schema.Attribute.Private;
     crmLastError: Schema.Attribute.Text;
     crmStatus: Schema.Attribute.String;
-    keywords: Schema.Attribute.String;
-    landingPage: Schema.Attribute.String;
+    keywords: Schema.Attribute.Text;
+    landingPage: Schema.Attribute.Text;
     leadId: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -590,14 +590,14 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     rawPayload: Schema.Attribute.JSON;
-    recordUrl: Schema.Attribute.String;
+    recordUrl: Schema.Attribute.Text;
     region: Schema.Attribute.String;
     substitutionChannelId: Schema.Attribute.String;
     substitutionChannelName: Schema.Attribute.String;
     substitutionNumber: Schema.Attribute.String;
     talkDurationSec: Schema.Attribute.Integer;
-    trackingUrl: Schema.Attribute.String;
-    trafficSource: Schema.Attribute.String;
+    trackingUrl: Schema.Attribute.Text;
+    trafficSource: Schema.Attribute.Text;
     trafficType: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['call', 'feedback']>;
     updatedAt: Schema.Attribute.DateTime;
@@ -606,9 +606,9 @@ export interface ApiCallibriWebhookLogCallibriWebhookLog
     userComment: Schema.Attribute.Text;
     userEmail: Schema.Attribute.String;
     userName: Schema.Attribute.String;
-    utmCampaign: Schema.Attribute.String;
-    utmMedium: Schema.Attribute.String;
-    utmSource: Schema.Attribute.String;
+    utmCampaign: Schema.Attribute.Text;
+    utmMedium: Schema.Attribute.Text;
+    utmSource: Schema.Attribute.Text;
     waitDurationSec: Schema.Attribute.Integer;
   };
 }

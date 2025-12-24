@@ -38,10 +38,10 @@
       "type": "integer"
     },
     "recordUrl": {
-      "type": "string"
+      "type": "text"
     },
     "trackingUrl": {
-      "type": "string"
+      "type": "text"
     },
     "substitutionChannelId": {
       "type": "string"
@@ -53,25 +53,25 @@
       "type": "string"
     },
     "landingPage": {
-      "type": "string"
+      "type": "text"
     },
     "trafficSource": {
-      "type": "string"
+      "type": "text"
     },
     "trafficType": {
       "type": "string"
     },
     "keywords": {
-      "type": "string"
+      "type": "text"
     },
     "utmSource": {
-      "type": "string"
+      "type": "text"
     },
     "utmMedium": {
-      "type": "string"
+      "type": "text"
     },
     "utmCampaign": {
-      "type": "string"
+      "type": "text"
     },
     "rawPayload": {
       "type": "json"

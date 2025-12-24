@@ -94,7 +94,6 @@ export default factories.createCoreService(
 
       if (!call) throw new Error(`Call not found: ${documentId}`);
 
-      // Твой дедуп/идентификатор
       const callId = call?.callId || documentId;
 
       const phoneParts = normalizePhoneForCrm(call.clientPhone);
@@ -105,6 +104,8 @@ export default factories.createCoreService(
 
       const payload = {
         name: `Callibri call #${callId}`,
+        typeCustom: mapType[call.type],
+
         phone: {
           primaryPhoneNumber: phoneParts.primaryPhoneNumber,
           primaryPhoneCallingCode: phoneParts.primaryPhoneCallingCode,
@@ -116,12 +117,12 @@ export default factories.createCoreService(
         talkdurationsec: String(call?.talkDurationSec || "0"),
         recordurl: call?.recordUrl || "",
         source: call?.trafficSource || "",
-        typeCustom: mapType[call.type],
+        trafficType: call?.trafficType || null,
+        region: call?.region || null,
+
         userName: call?.userName || null,
         userComment: call?.userComment || null,
         userEmail: call?.userEmail || null,
-        trafficType: call?.trafficType || null,
-        region: call?.region || null,
       };
 
       const url = `${baseUrl}/rest/calls`;
