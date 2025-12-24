@@ -71,60 +71,46 @@ export default {
       callDate: s(payload.date),
     };
 
-    const existed = await strapi
+    const saved = await strapi
       .documents("api::callibri-webhook-log.callibri-webhook-log")
-      .findMany({
-        filters: { callId: { $eq: s(callId) } },
-        limit: 1,
+      .create({
+        data,
+        status: "published",
       });
-
-    const saved = existed?.length
-      ? await strapi
-          .documents("api::callibri-webhook-log.callibri-webhook-log")
-          .update({
-            documentId: existed[0].documentId,
-            data,
-            status: "published",
-          })
-      : await strapi
-          .documents("api::callibri-webhook-log.callibri-webhook-log")
-          .create({
-            data,
-            status: "published",
-          });
 
     strapi.log.info("Create call");
 
-    if (!existed?.length) {
-      setImmediate(async () => {
-        try {
-          await strapi
-            .service("api::callibri-webhook-log.callibri-webhook-log")
-            .createCallInCrmByDocumentId(saved.documentId);
-          await strapi
-            .documents("api::callibri-webhook-log.callibri-webhook-log")
-            .update({
-              documentId: saved.documentId,
-              data: {
-                crmStatus: "success",
-              },
-              status: "published",
-            });
-        } catch (e) {
-          strapi.log.error("CRM create failed", e);
-          await strapi
-            .documents("api::callibri-webhook-log.callibri-webhook-log")
-            .update({
-              documentId: saved.documentId,
-              data: {
-                crmStatus: "failed",
-                crmLastError: String(e?.message ?? e),
-              },
-              status: "published",
-            });
-        }
-      });
-    }
+    setImmediate(async () => {
+      try {
+        await strapi
+          .service("api::callibri-webhook-log.callibri-webhook-log")
+          .createCallInCrmByDocumentId(saved.documentId);
+        strapi.log.info("SRM Push");
+
+        await strapi
+          .documents("api::callibri-webhook-log.callibri-webhook-log")
+          .update({
+            documentId: saved.documentId,
+            data: {
+              crmStatus: "success",
+            },
+            status: "published",
+          });
+        strapi.log.info("Strapi update");
+      } catch (e) {
+        strapi.log.error("CRM create failed", e);
+        await strapi
+          .documents("api::callibri-webhook-log.callibri-webhook-log")
+          .update({
+            documentId: saved.documentId,
+            data: {
+              crmStatus: "failed",
+              crmLastError: String(e?.message ?? e),
+            },
+            status: "published",
+          });
+      }
+    });
 
     ctx.body = { ok: true, callId: s(callId), documentId: saved.documentId };
   },
